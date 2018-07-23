@@ -1,0 +1,11 @@
+[user]
+	email = jacob.smith@eigeninnovations.com
+	name = Jacob Smith
+[alias]
+	recent = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\"
+	any = log --branches --not --remotes
+	ch = !gitcheckout checkout
+	mg = !gitcheckout merge
+	dl = !gitcheckout delete
+[push]
+	default = simple
