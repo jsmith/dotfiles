@@ -32,6 +32,9 @@ else
 	echo "$HOME is already a git repository."
 fi
 
+cd Pictures
+wget https://cdn.dribbble.com/users/108482/screenshots/1355879/attachments/193117/Space-Desktop.jpg
+
 # move tilix settings
 dconf load /com/gexperts/Tilix/ < tilix.dconf
 
@@ -49,6 +52,8 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install zsh
 chsh -s $(which zsh)
+
 echo "Please logout and log back in to activate zsh!"
+echo "Set your backgroud as well!"
 
 # TODO: export PATH=~/.local/bin:$PATH; oversee use; add unbootstrap.sh to back stuff up 
