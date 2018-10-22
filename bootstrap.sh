@@ -32,6 +32,10 @@ else
 	echo "$HOME is already a git repository."
 fi
 
+sudo apt-get install silversearcher-ag
+sudo apt install flameshot
+sudo apt-get install ripgrep
+
 cd Pictures
 wget https://cdn.dribbble.com/users/108482/screenshots/1355879/attachments/193117/Space-Desktop.jpg
 

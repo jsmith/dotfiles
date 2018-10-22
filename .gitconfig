@@ -4,8 +4,10 @@
 [alias]
 	recent = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\"
 	any = log --branches --not --remotes
-	ch = !gitcheckout checkout
-	mg = !gitcheckout merge
-	dl = !gitcheckout delete
+	ch = !ginteract checkout
+	mg = !ginteract merge
+	dl = !ginteract delete
+	s = status
+	d = diff
 [push]
 	default = simple
