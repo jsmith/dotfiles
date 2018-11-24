@@ -23,6 +23,7 @@ alias clip="xclip -sel c < "
 alias pic="flameshot gui -d 4000"
 
 export PYTHONPATH="$PYTHONPATH:~/git/eigen-models"
+export EDITOR="code"
 
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 export PATH=/usr/lib/postgresql/10/bin:${PATH}
