@@ -24,8 +24,11 @@ alias pic="flameshot gui -d 4000"
 
 export PYTHONPATH="$PYTHONPATH:~/git/eigen-models"
 export EDITOR="code"
+export GPG_TTY=$(tty)
 
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.poetry/bin:$PATH"
 export PATH=/usr/lib/postgresql/10/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export PYTHONPATH="$PYTHONPATH:/home/jacob/git/eigen-models"
