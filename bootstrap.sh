@@ -1,10 +1,34 @@
 set -e  # exit on error
 sudo -v  # require sudo
 
-if_repository () {
-	return git rev-parse 2> /dev/null; [ $? == 0 ] && echo 1
-}
+PYTHON="0"
+UTILS="0"
 
+while getopts ":ht" opt; do
+  case ${opt} in
+    python ) # process option a
+		PYTHON="1"
+      ;;
+	utils ) # process option a
+		UTILS="1"
+      ;;
+    \? ) 
+		echo "Usage: bootstrap.sh [--python] [--utils]"
+		exit
+      ;;
+  esac
+done
+
+# cp .zshrc ~/.zshrc
+# cp .gitconfig ~/.gitconfig
+
+mkdir -p ~/.ssh
+cp .ssh/* ~/.ssh
+
+mkdir -p ~/.config
+cp .config/* ~/.config
+
+echo ""
 filenames=("$HOME/.ssh/id_rsa" "$HOME/.ssh/id_rsa.pub")
 for filename in $filenames; do
 	if [ ! -e $filename ]; then
@@ -14,48 +38,47 @@ for filename in $filenames; do
 	chmod 400 $filename
 done
 
-for filename in ~/.ssh/*.pem; do
-	chmod 400 $filename
-done
+echo "Installing ZSH"
+brew install zsh
 
-sudo apt install python3-pip python3-minimal -y
-sudo ln -sf /usr/bin/pip3 /usr/bin/pip
-sudo ln -sf /usr/bin/python3 /usr/bin/python
+# TODO THIS SHOULD ONLY RUN ONCE
+sudo sh -c "echo $(which zsh) >> /etc/shells"
+chsh -s $(which zsh)
 
-cd
-sudo apt-get install git -y
-if [ ! if_repository ]; then
-	git init
-	git remote add origin git@github.com:jacsmith21/dotfiles.git
-	git pull origin master
-else
-	echo "$HOME is already a git repository."
+cp .zshrc ~/.zshrc
+
+if [ $PYTHON == "1" ] then
+	sudo apt install python3-pip python3-minimal -y
+	sudo ln -sf /usr/bin/pip3 /usr/bin/pip
+	sudo ln -sf /usr/bin/python3 /usr/bin/python
 fi
 
-sudo apt-get install silversearcher-ag
-sudo apt install flameshot
-sudo apt-get install ripgrep
+if [ $UTILS == "1" ] then
+	sudo apt-get install silversearcher-ag
+	sudo apt install flameshot
+	sudo apt-get install ripgrep
+fi
 
-cd Pictures
-wget https://cdn.dribbble.com/users/108482/screenshots/1355879/attachments/193117/Space-Desktop.jpg
+# cd ~/Pictures
+# wget https://cdn.dribbble.com/users/108482/screenshots/1355879/attachments/193117/Space-Desktop.jpg
 
 # move tilix settings
-dconf load /com/gexperts/Tilix/ < tilix.dconf
+# dconf load /com/gexperts/Tilix/ < tilix.dconf
 
-pip install git+https://github.com/jacsmith21/oversee
-oversee export local
+# pip install git+https://github.com/jacsmith21/oversee
+# oversee export local
 # oversee setup default
-oversee setup python
+# oversee setup python
 # oversee setup web
-oversee setup work
+# oversee setup work
 
-oversee sync pycharm
-oversee sync webstorm
+# oversee sync pycharm
+# oversee sync webstorm
 
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install zsh
-chsh -s $(which zsh)
+# sudo apt-get update
+# sudo apt-get upgrade
+# sudo apt-get install zsh
+
 
 echo "Please logout and log back in to activate zsh!"
 echo "Set your backgroud as well!"
