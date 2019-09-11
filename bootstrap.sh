@@ -94,3 +94,7 @@ echo "Please logout and log back in to activate zsh!"
 echo "Set your backgroud as well!"
 
 # TODO: export PATH=~/.local/bin:$PATH; oversee use; add unbootstrap.sh to back stuff up 
+
+
+# NPM Installs
+npm i -g gitmoji-cli

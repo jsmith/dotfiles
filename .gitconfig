@@ -1,14 +1,17 @@
 [user]
-	email = jacob.smith@eigeninnovations.com
+	email = jacob.smith@unb.ca
 	name = Jacob Smith
+	signingkey = 2F163B7922EDCD4D
 [alias]
 	recent = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\"
 	any = log --branches --not --remotes
+	emoji = !gitmoji -c
 	ch = !ginteract checkout
 	mg = !ginteract merge
 	dl = !ginteract delete
 	s = status
 	d = diff
 	quick-stats = !git-quick-stats
+	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
 [push]
 	default = simple
