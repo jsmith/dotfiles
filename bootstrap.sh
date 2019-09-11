@@ -3,6 +3,7 @@ sudo -v  # require sudo
 
 PYTHON="0"
 UTILS="0"
+VIM="0"
 
 while getopts ":ht" opt; do
   case ${opt} in
@@ -12,6 +13,8 @@ while getopts ":ht" opt; do
 	utils ) # process option a
 		UTILS="1"
       ;;
+    vim )
+      VIM="1"
     \? ) 
 		echo "Usage: bootstrap.sh [--python] [--utils]"
 		exit
@@ -57,6 +60,13 @@ if [ $UTILS == "1" ] then
 	sudo apt-get install silversearcher-ag
 	sudo apt install flameshot
 	sudo apt-get install ripgrep
+fi
+
+if [ $VIM == "1" ] then
+  brew install the_silver_searcher
+  brew install neovim
+  url -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 # cd ~/Pictures
