@@ -22,8 +22,7 @@ while getopts ":ht" opt; do
   esac
 done
 
-# cp .zshrc ~/.zshrc
-# cp .gitconfig ~/.gitconfig
+cp .gitconfig ~/.gitconfig
 
 mkdir -p ~/.ssh
 cp .ssh/* ~/.ssh
@@ -69,32 +68,5 @@ if [ $VIM == "1" ] then
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-# cd ~/Pictures
-# wget https://cdn.dribbble.com/users/108482/screenshots/1355879/attachments/193117/Space-Desktop.jpg
-
-# move tilix settings
-# dconf load /com/gexperts/Tilix/ < tilix.dconf
-
-# pip install git+https://github.com/jacsmith21/oversee
-# oversee export local
-# oversee setup default
-# oversee setup python
-# oversee setup web
-# oversee setup work
-
-# oversee sync pycharm
-# oversee sync webstorm
-
-# sudo apt-get update
-# sudo apt-get upgrade
-# sudo apt-get install zsh
-
-
 echo "Please logout and log back in to activate zsh!"
 echo "Set your backgroud as well!"
-
-# TODO: export PATH=~/.local/bin:$PATH; oversee use; add unbootstrap.sh to back stuff up 
-
-
-# NPM Installs
-npm i -g gitmoji-cli

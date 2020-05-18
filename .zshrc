@@ -15,21 +15,15 @@ fpath=($fpath "/home/jacob/.zfunctions")
 autoload -U promptinit; promptinit
 prompt spaceship
 
+alias vi="vim"
+alias vim="nvim"
 alias ll='ls -alF'
-alias models="cd ~/git/eigen-models"
-alias gits="cd ~/git"
 alias check-fs="du -sh *(D) | grep G"
-alias clip="xclip -sel c < "
-alias pic="flameshot gui -d 4000"
+alias dl="youtube-dl --extract-audio -k --audio-format mp3 -o \"~/Downloads/SoundCloud/%(title)s.%(ext)s\""
 
-export PYTHONPATH="$PYTHONPATH:~/git/eigen-models"
+export ANDROID_HOME="/usr/local/Caskroom/android-sdk/4333796"
 export EDITOR="code"
-export GPG_TTY=$(tty)
+export PATH="/Users/jacob/bin:$PATH"
 
-export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.poetry/bin:$PATH"
-export PATH=/usr/lib/postgresql/10/bin:${PATH}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export PYTHONPATH="$PYTHONPATH:/home/jacob/git/eigen-models"
+export PATH="/Users/jacob/Library/Python/3.7/bin:$PATH"
 fpath=($fpath "/home/jacob/.zfunctions")
