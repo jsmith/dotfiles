@@ -22,8 +22,22 @@ alias check-fs="du -sh *(D) | grep G"
 alias dl="youtube-dl --extract-audio -k --audio-format mp3 -o \"~/Downloads/SoundCloud/%(title)s.%(ext)s\""
 
 export ANDROID_HOME="/usr/local/Caskroom/android-sdk/4333796"
-export EDITOR="code"
+export ANDROID_SDK_ROOT=/Users/jacob/Library/Android/sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export PATH=$PATH:$HOME/.poetry/bin
 export PATH="/Users/jacob/bin:$PATH"
 
-export PATH="/Users/jacob/Library/Python/3.7/bin:$PATH"
+export PATH="/Users/jacob/Library/Python/3.7/bin:/Users/jacob/.cargo/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
 fpath=($fpath "/home/jacob/.zfunctions")
+
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/jacob/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jacob/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+# if [ -f '/Users/jacob/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jacob/google-cloud-sdk/completion.zsh.inc'; fi

@@ -1,36 +1,30 @@
 set -e  # exit on error
 sudo -v  # require sudo
 
-PYTHON="0"
-UTILS="0"
-VIM="0"
+exists() {
+  command -v "$1" >/dev/null 2>&1
+}
 
-while getopts ":ht" opt; do
-  case ${opt} in
-    python ) # process option a
-		PYTHON="1"
-      ;;
-	utils ) # process option a
-		UTILS="1"
-      ;;
-    vim )
-      VIM="1"
-    \? ) 
-		echo "Usage: bootstrap.sh [--python] [--utils]"
-		exit
-      ;;
-  esac
-done
+if ! exists brew; then
+	echo "Installing brew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+fi
+
+if ! exists cargo; then
+	echo "Installing rust"
+	curl https://sh.rustup.rs -sSf -o install-rust.sh
+	chmod +x install-rust.sh
+	./install-rust.sh -y
+	rm -rf install-rust.sh
+fi
 
 cp .gitconfig ~/.gitconfig
+
+cp keybindings.json ~/Library/Application\ Support/Code/User
 
 mkdir -p ~/.ssh
 cp .ssh/* ~/.ssh
 
-mkdir -p ~/.config
-cp .config/* ~/.config
-
-echo ""
 filenames=("$HOME/.ssh/id_rsa" "$HOME/.ssh/id_rsa.pub")
 for filename in $filenames; do
 	if [ ! -e $filename ]; then
@@ -40,33 +34,36 @@ for filename in $filenames; do
 	chmod 400 $filename
 done
 
+brew install rocket
+
 echo "Installing ZSH"
 brew install zsh
-
-# TODO THIS SHOULD ONLY RUN ONCE
-sudo sh -c "echo $(which zsh) >> /etc/shells"
-chsh -s $(which zsh)
-
 cp .zshrc ~/.zshrc
 
-if [ $PYTHON == "1" ] then
-	sudo apt install python3-pip python3-minimal -y
-	sudo ln -sf /usr/bin/pip3 /usr/bin/pip
-	sudo ln -sf /usr/bin/python3 /usr/bin/python
+
+if [ ! -f $NVM_DIR/nvm.sh ]; then
+	echo "Install nvm"
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+else
+	\. $NVM_DIR/nvm.sh
+	nvm install 12
+	nvm alias default 12
+	npm install -g spaceship-prompt
 fi
 
-if [ $UTILS == "1" ] then
-	sudo apt-get install silversearcher-ag
-	sudo apt install flameshot
-	sudo apt-get install ripgrep
-fi
+# TODO
+# https://wallpapers.hector.me/static/Rainbow.jpg
 
-if [ $VIM == "1" ] then
-  brew install the_silver_searcher
+# brew does this automatically
+# # TODO THIS SHOULD ONLY RUN ONCE
+# sudo sh -c "echo $(which zsh) >> /etc/shells"
+# chsh -s $(which zsh)
+
+if ! exists nvim then
+  # brew install the_silver_searcher
   brew install neovim
-  url -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  # url -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+  #   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 echo "Please logout and log back in to activate zsh!"
-echo "Set your backgroud as well!"
