@@ -10,7 +10,7 @@ if ! exists brew; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
-if ! exists cargo; then
+if [ ! -e $HOME/.cargo/bin/cargo ]; then
 	echo "Installing rust"
 	curl https://sh.rustup.rs -sSf -o install-rust.sh
 	chmod +x install-rust.sh
@@ -43,13 +43,13 @@ cp .zshrc ~/.zshrc
 
 if [ ! -f $NVM_DIR/nvm.sh ]; then
 	echo "Install nvm"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-else
-	\. $NVM_DIR/nvm.sh
-	nvm install 12
-	nvm alias default 12
-	npm install -g spaceship-prompt
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 fi
+
+\. $HOME/.nvm/nvm.sh
+nvm install 12
+nvm alias default 12
+npm install -g spaceship-prompt
 
 # TODO
 # https://wallpapers.hector.me/static/Rainbow.jpg
@@ -59,7 +59,7 @@ fi
 # sudo sh -c "echo $(which zsh) >> /etc/shells"
 # chsh -s $(which zsh)
 
-if ! exists nvim then
+if ! exists nvim; then
   # brew install the_silver_searcher
   brew install neovim
   # url -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
