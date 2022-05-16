@@ -29,6 +29,8 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
 export PATH=$PATH:$HOME/.poetry/bin
 export PATH="/Users/jacob/bin:$PATH"
 
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+
 export PATH="/Users/jacob/Library/Python/3.7/bin:/Users/jacob/.cargo/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 fpath=($fpath "/home/jacob/.zfunctions")

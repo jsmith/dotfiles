@@ -6,64 +6,56 @@ exists() {
 }
 
 if ! exists brew; then
-	echo "Installing brew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+	echo "Installing brew!"
+ 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 if [ ! -e $HOME/.cargo/bin/cargo ]; then
-	echo "Installing rust"
+	echo "Installing rust!"
 	curl https://sh.rustup.rs -sSf -o install-rust.sh
 	chmod +x install-rust.sh
 	./install-rust.sh -y
 	rm -rf install-rust.sh
 fi
 
+echo "Install gitconfig!"
 cp .gitconfig ~/.gitconfig
 
+echo "Installing VS Code keybindings!"
 cp keybindings.json ~/Library/Application\ Support/Code/User
 
-mkdir -p ~/.ssh
-cp .ssh/* ~/.ssh
-
-filenames=("$HOME/.ssh/id_rsa" "$HOME/.ssh/id_rsa.pub")
-for filename in $filenames; do
-	if [ ! -e $filename ]; then
-		printf "%s does not exist. Please add this file and run this script again!\n" $filename
-		exit 1
-	fi
-	chmod 400 $filename
-done
-
+echo "Installing Rocket!"
 brew install rocket
 
-echo "Installing ZSH"
+echo "Installing ZSH!"
 brew install zsh
 cp .zshrc ~/.zshrc
 
 
 if [ ! -f $NVM_DIR/nvm.sh ]; then
-	echo "Install nvm"
+	echo "Install nvm!"
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 fi
 
+echo "Setting default node version -> 12!"
 \. $HOME/.nvm/nvm.sh
 nvm install 12
 nvm alias default 12
-npm install -g spaceship-prompt
 
-# TODO
-# https://wallpapers.hector.me/static/Rainbow.jpg
+echo "Installing Spaceship Prompt!"
+npm install -g spaceship-prompt
 
 # brew does this automatically
 # # TODO THIS SHOULD ONLY RUN ONCE
 # sudo sh -c "echo $(which zsh) >> /etc/shells"
 # chsh -s $(which zsh)
 
-if ! exists nvim; then
-  # brew install the_silver_searcher
-  brew install neovim
-  # url -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-  #   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if ! exists nvim; then	
+	echo "Installing nvim!"
+	# brew install the_silver_searcher
+	brew install neovim
+	# url -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+	#   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 echo "Please logout and log back in to activate zsh!"
